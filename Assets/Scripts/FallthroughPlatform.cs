@@ -9,7 +9,6 @@ public class FallthroughPlatform : MonoBehaviour
     private float falling = 0.0f;
     private bool movingUp = false;
 
-
     // Update is called once per frame
     void Update()
     {
@@ -17,13 +16,14 @@ public class FallthroughPlatform : MonoBehaviour
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             falling = timeToDisable;
         } else if (!movingUp) {
-            if (falling <= 0.0f) {
+            /*if (falling <= 0.0f) {
                 return;
             }
             falling -= Time.deltaTime;
             if (falling < 0.0f) {
                 this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-            }
+            }*/
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 

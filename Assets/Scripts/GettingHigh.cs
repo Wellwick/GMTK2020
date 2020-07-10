@@ -28,6 +28,8 @@ public class GettingHigh : MonoBehaviour
                     Debug.Log("Can't jump anymore");
                 }
             }
+        } else if (Input.GetKey("d")) {
+            landed = false;
         } else {
             lastContact = jumpTime;
         }
