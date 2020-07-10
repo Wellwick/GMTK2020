@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TranslucentPlatform : MonoBehaviour
+public class FallthroughPlatform : MonoBehaviour
 {
 
     public float timeToDisable = 0.4f;
