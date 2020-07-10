@@ -8,27 +8,12 @@ public class GettingHigh : MonoBehaviour
     public float jumpSpeed = 2.0f;
     private float lastContact;
     private bool landed;
+    public float lastYSpeed = 0.0f;
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        List<Collider2D> collisions = new List<Collider2D>();
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.layerMask = LayerMask.NameToLayer("Platforms");
-        filter.useLayerMask = true;
-        if (this.gameObject.GetComponent<BoxCollider2D>().OverlapCollider(filter, collisions) > 0) {
-            lastContact = Time.realtimeSinceStartup;
-            Debug.Log("Hey we just touched a thing");
-        } else {
-            
-        }
-        if (this.gameObject.GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("Platforms"))) {
-            Debug.Log("Touching the platforms");
-        } else {
-            Debug.Log("Not touching the platforms of which there are " + LayerMask.NameToLayer("Platforms").ToString());
-        }
-        */
+        lastYSpeed = this.gameObject.GetComponent<Rigidbody2D>().velocity.y;
         if (Input.GetKey("space")) {
             if (landed) {
                 landed = false;
