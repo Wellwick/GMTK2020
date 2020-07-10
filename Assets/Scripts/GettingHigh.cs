@@ -51,7 +51,10 @@ public class GettingHigh : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("We have a collision with " + collision.gameObject.layer);
-        landed = true;
+        if (collision.gameObject.GetComponent<GeneralPlatform>()) {
+            landed = true;
+        } else {
+            Debug.Log("You hit a wall");
+        }
     }
 }

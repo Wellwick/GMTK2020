@@ -25,4 +25,11 @@ public class FallthroughPlatform : MonoBehaviour
             }
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y > 0.0f) {
+
+        }
+    }
 }
