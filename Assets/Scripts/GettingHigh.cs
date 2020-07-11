@@ -18,6 +18,7 @@ public class GettingHigh : MonoBehaviour
             if (landed) {
                 landed = false;
                 lastContact = 0.0f;
+                GetComponent<ParticleSystem>().Play();
             } else {
                 lastContact += Time.deltaTime;
                 if (lastContact < jumpTime) {

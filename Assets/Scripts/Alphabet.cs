@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Alphabet : MonoBehaviour
 {
-    public Letter a;
-    public Letter b;
     // Start is called before the first frame update
     void Start()
     {
