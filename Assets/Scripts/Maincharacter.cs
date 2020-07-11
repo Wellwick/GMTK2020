@@ -8,6 +8,7 @@ public class MainCharacter : MonoBehaviour
     public float acceleration = 10.0f;
 
     // Update is called once per frame
+    // Move left and right when you press the right buttons.
     void Update()
     {
         float currentX = this.gameObject.GetComponent<Rigidbody2D>().velocity.x;
@@ -18,14 +19,12 @@ public class MainCharacter : MonoBehaviour
                 xSpeed -= acceleration * Time.deltaTime;
             }
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, currentY);
-            Debug.Log("Going left");
         } else if (Input.GetKey("d") && !Input.GetKey("a")) {
             float xSpeed = currentX + (acceleration * Time.deltaTime);
             if (xSpeed < 0.0f) {
                 xSpeed += acceleration * Time.deltaTime;
             }
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, currentY);
-            Debug.Log("Going right");
         }
     }
 }

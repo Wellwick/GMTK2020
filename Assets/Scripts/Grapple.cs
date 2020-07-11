@@ -17,6 +17,10 @@ public class Grapple : MonoBehaviour
     private Hook hook;
 
     // Update is called once per frame
+    // Fire a grapple if you haven't already, when hitting E
+    // Move grapple along if it is still firing
+    // If grapple has landed, reel in the player
+    // Destroy the hook and refire if needed
     void Update()
     {
         if (Input.GetKey("e") && !firing) {
@@ -64,6 +68,7 @@ public class Grapple : MonoBehaviour
 
     }
 
+    // Draw a white line in scene view to show that the grapple direction is working
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;

@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Hook : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Grapple grappler;
+
+    // Make sure you can get back to the class which is doing the real work
+    public void SetGrappler(Grapple p_grappler)
     {
-        
+        grappler = p_grappler;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    // Make sure we ignore collisions with the player
+    void Start()
     {
-        
+        MainCharacter mc = FindObjectOfType<MainCharacter>();
+        Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), mc.gameObject.GetComponent<BoxCollider2D>(), true);
+    }
+
+    // If we hit a platform, get reeeeeeeling.
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GeneralPlatform gp = collision.gameObject.GetComponent<GeneralPlatform>();
+        Debug.Log("Time to something something");
     }
 }

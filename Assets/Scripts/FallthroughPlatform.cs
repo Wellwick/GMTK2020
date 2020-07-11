@@ -9,12 +9,15 @@ public class FallthroughPlatform : MonoBehaviour
     private float falling = 0.0f;
     private bool movingUp = false;
 
+
+    // Setup the player that we want to be aware of from the start
     private void Start()
     {
         player = Object.FindObjectOfType<MainCharacter>().gameObject;
     }
 
     // Update is called once per frame
+    // Potentially allow falling through the bottom of the platform
     void Update()
     {
         bool ignoreCollision = player.transform.position.y < gameObject.transform.position.y;
@@ -33,7 +36,8 @@ public class FallthroughPlatform : MonoBehaviour
             this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
-
+    
+    // If a player is colliding with us and moving upwards, let them through!
     void OnCollisionEnter2D(Collision2D collision)
     {
         GettingHigh gh = collision.gameObject.GetComponent<GettingHigh>();
@@ -47,6 +51,9 @@ public class FallthroughPlatform : MonoBehaviour
         }
     }
 
+    // If the player is falling down through us, make sure it's registered that
+    // they are falling downwards. Imagine jumping up into a platform and falling
+    // back down without fully coming up on the other side.
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (movingUp && collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0.0f) {
@@ -55,6 +62,8 @@ public class FallthroughPlatform : MonoBehaviour
         }
     }
 
+    // Possibly a bit unnecessary, but best to be careful. Turn on full collision again
+    // when the (possible) player has passed out of the platform.
     private void OnTriggerExit2D(Collider2D collision)
     {
         this.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;

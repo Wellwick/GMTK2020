@@ -9,6 +9,7 @@ public class Word : MonoBehaviour
     private bool touched = false;
 
     // Start is called before the first frame update
+    // Set the text via a variable
     void Awake()
     {
         Text text = gameObject.GetComponent<Text>();
@@ -16,6 +17,8 @@ public class Word : MonoBehaviour
         Debug.Log("The preferred width of " + text.text + " is " + text.preferredWidth);
     }
 
+    // Change up the rectangular transform and box collider based on the word
+    // set during the awake stage!
     private void Start()
     {
         Text text = gameObject.GetComponent<Text>();
@@ -26,6 +29,8 @@ public class Word : MonoBehaviour
         bc.size = new Vector2(text.preferredWidth, text.preferredHeight);
     }
 
+    // Slightly darken the colour of this word when the player touches it for the first time
+    // This is so they can track which words they have touched
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!touched) {
@@ -38,6 +43,7 @@ public class Word : MonoBehaviour
         }
     }
 
+    // Getter function for if this word has been touched
     public bool HasBeenTouched()
     {
         return touched;

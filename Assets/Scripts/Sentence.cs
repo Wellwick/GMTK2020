@@ -14,6 +14,11 @@ public class Sentence : MonoBehaviour
     private bool wecare = true;
 
     // Start is called before the first frame update
+    // Take the sentence we have, split it up, and make individual word blocks
+    // Decide on a colour for the words based on who we think is speaking in 
+    // the current sentence
+    // Place the blocks randomly-ish
+    // Keep track of how far along we are
     void Awake()
     {
         horizontalDistance = 0.0f;
@@ -43,6 +48,7 @@ public class Sentence : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Declare when all our words have been touched
     void Update()
     {
         if (AllTouched() && wecare) {
@@ -51,6 +57,7 @@ public class Sentence : MonoBehaviour
         }
     }
 
+    // Kind of a dictionary of names to colours, this is really bad practice
     private static Color GetColor(string speaker)
     {
         Debug.Log("Speaker is " + speaker);
@@ -66,16 +73,21 @@ public class Sentence : MonoBehaviour
         }
     }
 
+    // Calculate what the maximum height of this sentence could be, if the lowest 
+    // value was chosen at the final interval
+    // I don't know why it's divided by 2.0f!
     public float LowestMaxHeight()
     {
         return wordObjects.Length * maxHeightDifference/2.0f;
     }
 
+    // Getter function for horizontalDistance
     public float HorizontalDistance()
     {
         return horizontalDistance;
     }
 
+    // Tells you whether all the words have been touched
     public bool AllTouched()
     {
         bool touched = true;

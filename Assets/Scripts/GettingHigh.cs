@@ -12,6 +12,9 @@ public class GettingHigh : MonoBehaviour
     public float lastYSpeed = 0.0f;
 
     // Update is called once per frame
+    // Jump up if space is pressed, as long as you are on the ground, or it's still in jump time
+    // Turn off landed if you press down (can't jump if you decide to fall through a platform)
+    // Reset last point of contact otherwise!
     void Update()
     {
         lastYSpeed = this.gameObject.GetComponent<Rigidbody2D>().velocity.y;
@@ -39,12 +42,20 @@ public class GettingHigh : MonoBehaviour
         
     }
 
+    // Turn on landed if you hit a GeneralPlatform
+    // Needs some extra work so it doesn't count when you hit the bottom or sides
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<GeneralPlatform>()) {
             landed = true;
-        } else {
-            Debug.Log("You hit a wall");
+        }
+    }
+
+    // Turn off landed when leaving a general platform
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<GeneralPlatform>()) {
+            landed = false;
         }
     }
 }

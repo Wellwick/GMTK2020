@@ -9,12 +9,15 @@ public class WallOfDeath : MonoBehaviour
     float risingSpeed = 1.0f;
 
     // Update is called once per frame
+    // Stay beneath the player!
     void Update()
     {
         Vector3 pos = gameObject.transform.position;
         gameObject.transform.position = new Vector3(player.transform.position.x, pos.y + risingSpeed * Time.deltaTime);
     }
 
+    // Destroy general platforms when we encounter them!
+    // End the game if we catch the player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Have a trigger collision!");

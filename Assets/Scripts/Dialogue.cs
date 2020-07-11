@@ -11,7 +11,8 @@ public class Dialogue : MonoBehaviour
     private float width = 0.0f;
     private bool wecare = true;
 
-    // Start is called before the first frame update
+    // When the Dialogue Object first gets created when I hit play
+    // It creates the sentences from the dialogue text file
     void Awake()
     {
         Debug.Log(dialogue.name);
@@ -32,6 +33,7 @@ public class Dialogue : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Checks whether everything has been touched so we can notify (atm)
     void Update()
     {
         if (AllTouched() && wecare) {
@@ -40,11 +42,13 @@ public class Dialogue : MonoBehaviour
         }
     }
 
+    // Provides the worst case endpoint for the sequence of sentences in the dialogue
     public Vector3 EndPoint()
     {
         return new Vector3(width, height);
     }
 
+    // Checks all the sentences, to see whether all of their words have been landed on
     public bool AllTouched()
     {
         bool touched = true;
