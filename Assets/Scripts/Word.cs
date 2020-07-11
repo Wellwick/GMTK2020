@@ -29,6 +29,13 @@ public class Word : MonoBehaviour
         bc.size = new Vector2(text.preferredWidth, text.preferredHeight);
     }
 
+    void Update() {
+        if (Input.GetKey("i") && false) {
+            Vector3 playerPos = FindObjectOfType<MainCharacter>().gameObject.transform.position;
+            BlastIt(playerPos, 50.0f);
+        }
+    }
+
     // Slightly darken the colour of this word when the player touches it for the first time
     // This is so they can track which words they have touched
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,4 +55,12 @@ public class Word : MonoBehaviour
     {
         return touched;
     }
+
+    public void BlastIt(Vector3 source, float strength) {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.AddForce((transform.position - source).normalized * strength);
+
+    }
+
 }
