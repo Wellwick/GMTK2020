@@ -33,7 +33,7 @@ public class Word : MonoBehaviour
             if (player) {
                 touched = true;
                 Text text = GetComponent<Text>();
-                text.color -= new Color(40.0f, 40.0f, 40.0f);
+                text.color *= 0.8f;
             }
         }
     }

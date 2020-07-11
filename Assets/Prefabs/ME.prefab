@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2498689449159540843}
   - component: {fileID: 2498689449159540842}
   - component: {fileID: 2498689449159540840}
+  - component: {fileID: 7481126608119047292}
   - component: {fileID: 2498689449159540841}
   - component: {fileID: 2498689449159540822}
-  - component: {fileID: 7481126608119047292}
   - component: {fileID: 5434826080384007395}
   - component: {fileID: 1633426112301373446}
   m_Layer: 0
@@ -73,6 +73,20 @@ MonoBehaviour:
   jumpTime: 0.15
   jumpSpeed: 50
   lastYSpeed: 0
+--- !u!114 &7481126608119047292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498689449159540845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd02237d867a1842a86866ec770b0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 8
+  acceleration: 16
 --- !u!212 &2498689449159540841
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,20 +163,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16933402, y: 0.20034064}
   m_EdgeRadius: 0
---- !u!114 &7481126608119047292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2498689449159540845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccd02237d867a1842a86866ec770b0ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 8
-  acceleration: 16
 --- !u!199 &5434826080384007395
 ParticleSystemRenderer:
   serializedVersion: 6

@@ -53,11 +53,11 @@ public class Sentence : MonoBehaviour
             case "":
                 return Color.black;
             case "ME":
-                return new Color(238, 130, 238); // Violet, comes out white for some reason
+                return new Color(238/255, 130/255, 238/255); // Violet, comes out white for some reason
             case "Knight":
                 return Color.red;
             default:
-                return new Color(40, 40, 40); //Greyish
+                return new Color(40/255, 40/255, 40/255); //Greyish
         }
     }
 
