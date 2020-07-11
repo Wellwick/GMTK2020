@@ -11,23 +11,25 @@ public class Sentence : MonoBehaviour
     public GameObject word; // Prefab word
     private GameObject[] wordObjects;
     private float horizontalDistance = 0.0f;
+    private bool wecare = true;
 
     // Start is called before the first frame update
     void Awake()
     {
         horizontalDistance = 0.0f;
         string[] words = sentence.Split(' ');
-        wordObjects = new GameObject[words.Length];
         int startIndex = 0;
         Color textColor;
         if (words[0].Contains(":")) {
             textColor = Sentence.GetColor(words[0].Replace(":", ""));
             startIndex = 1;
+            wordObjects = new GameObject[words.Length-1];
         } else {
             textColor = Sentence.GetColor("");
+            wordObjects = new GameObject[words.Length];
         }
-        for (int i = startIndex; i < words.Length; ++i) {
-            word.GetComponent<Word>().word = words[i];
+        for (int i = 0; i < wordObjects.Length; ++i) {
+            word.GetComponent<Word>().word = words[i+startIndex];
             word.GetComponent<Text>().color = textColor;
             wordObjects[i] = GameObject.Instantiate(word, gameObject.transform);
             float width = wordObjects[i].GetComponent<Text>().preferredWidth;
@@ -43,7 +45,10 @@ public class Sentence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (AllTouched() && wecare) {
+            Debug.Log("All Words have been touched completely for '" + sentence + "'");
+            wecare = false;
+        }
     }
 
     private static Color GetColor(string speaker)
@@ -53,11 +58,11 @@ public class Sentence : MonoBehaviour
             case "":
                 return Color.black;
             case "ME":
-                return new Color(238/255, 130/255, 238/255); // Violet, comes out white for some reason
+                return new Color(238.0f/255.0f, 130.0f/255.0f, 238.0f/255.0f); // Violet
             case "Knight":
                 return Color.red;
             default:
-                return new Color(40/255, 40/255, 40/255); //Greyish
+                return new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f); //Greyish
         }
     }
 
@@ -69,5 +74,14 @@ public class Sentence : MonoBehaviour
     public float HorizontalDistance()
     {
         return horizontalDistance;
+    }
+
+    public bool AllTouched()
+    {
+        bool touched = true;
+        for (int i=0; i < wordObjects.Length; ++i) {
+            touched &= wordObjects[i].GetComponent<Word>().HasBeenTouched();
+        }
+        return touched;
     }
 }

@@ -37,4 +37,9 @@ public class Word : MonoBehaviour
             }
         }
     }
+
+    public bool HasBeenTouched()
+    {
+        return touched;
+    }
 }
