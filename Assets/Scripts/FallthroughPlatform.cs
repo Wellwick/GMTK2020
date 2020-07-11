@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class FallthroughPlatform : MonoBehaviour
 {
-
+    private GameObject player;
     public float timeToDisable = 0.4f;
     private float falling = 0.0f;
     private bool movingUp = false;
 
+    private void Start()
+    {
+        player = Object.FindObjectOfType<MainCharacter>().gameObject;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        bool ignoreCollision = player.transform.position.y < gameObject.transform.position.y;
+        Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>(), ignoreCollision);
         if (Input.GetKey("s")) {
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             falling = timeToDisable;
