@@ -6411,6 +6411,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2498689449159540840, guid: 94abf6fbc8c56924f948c572453d5405,
+        type: 3}
+      propertyPath: maxJumpAcceleration
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2498689449159540842, guid: 94abf6fbc8c56924f948c572453d5405,
         type: 3}
       propertyPath: m_Constraints
@@ -6495,16 +6500,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ME
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481126608119047292, guid: 94abf6fbc8c56924f948c572453d5405,
-        type: 3}
-      propertyPath: acceleration
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481126608119047292, guid: 94abf6fbc8c56924f948c572453d5405,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94abf6fbc8c56924f948c572453d5405, type: 3}

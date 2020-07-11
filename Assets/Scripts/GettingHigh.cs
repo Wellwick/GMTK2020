@@ -5,7 +5,8 @@ using UnityEngine;
 public class GettingHigh : MonoBehaviour
 {
     public float jumpTime = 1.0f;
-    public float jumpSpeed = 2.0f;
+    public float maxJumpSpeed = 2.0f;
+    public AnimationCurve ac;
     private float lastContact;
     private bool landed;
     public float lastYSpeed = 0.0f;
@@ -23,7 +24,8 @@ public class GettingHigh : MonoBehaviour
                 lastContact += Time.deltaTime;
                 if (lastContact < jumpTime) {
                     Vector2 currentVelocity = this.gameObject.GetComponent<Rigidbody2D>().velocity;
-                    this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(currentVelocity.x, jumpSpeed * lastContact);
+                    float interp = lastContact / jumpTime;
+                    this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(currentVelocity.x, maxJumpSpeed * ac.Evaluate(interp));
                     Debug.Log("Jumping");
                 } else {
                     Debug.Log("Can't jump anymore");
