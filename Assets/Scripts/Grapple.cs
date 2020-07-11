@@ -26,6 +26,7 @@ public class Grapple : MonoBehaviour
         if (Input.GetKey("e") && !firing) {
             if (hook) {
                 GameObject.Destroy(hook.gameObject);
+                gameObject.GetComponent<LineRenderer>().enabled = false;
                 reeling = false;
             }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -42,8 +43,19 @@ public class Grapple : MonoBehaviour
             ).GetComponent<Hook>();
             reeling = false;
             gameObject.GetComponent<LineRenderer>().enabled = true;
-        } else if (reeling) {
+        }
+        if (Input.GetKey("space")) {
+            if (hook) {
+                GameObject.Destroy(hook.gameObject);
+                gameObject.GetComponent<LineRenderer>().enabled = false;
+                reeling = false;
+                firing = false;
+            }
+        }
 
+        if (reeling) {
+            Vector3 direction = hook.gameObject.transform.position - transform.position;
+            GetComponent<Rigidbody2D>().velocity = direction.normalized * reelSpeed;
         }
 
         if (firing) {
@@ -55,6 +67,10 @@ public class Grapple : MonoBehaviour
             } else {
                 hook.transform.position += movement;
                 firedDistance += movement.magnitude;
+                if (hook.IsHooked()) {
+                    firing = false;
+                    reeling = true;
+                }
             }
         }
 

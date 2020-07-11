@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {
     private Grapple grappler;
+    private bool hooked = false;
 
     // Make sure you can get back to the class which is doing the real work
     public void SetGrappler(Grapple p_grappler)
@@ -21,9 +22,14 @@ public class Hook : MonoBehaviour
     }
 
     // If we hit a platform, get reeeeeeeling.
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         GeneralPlatform gp = collision.gameObject.GetComponent<GeneralPlatform>();
-        Debug.Log("Time to something something");
+        hooked = true;
+    }
+
+    public bool IsHooked()
+    {
+        return hooked;
     }
 }

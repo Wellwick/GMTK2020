@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3987702727536556713}
   - component: {fileID: 8542072497647849843}
   - component: {fileID: -151851834814129495}
+  - component: {fileID: -8145598405800243457}
   m_Layer: 5
   m_Name: Word
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -119,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1eae38ab995bf40902ec82095c608e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: test
+  word: rude.
 --- !u!114 &-151851834814129495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +133,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78764626b716bbb4e9f0fce5e7a92148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &-8145598405800243457
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5024541756793523641}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
