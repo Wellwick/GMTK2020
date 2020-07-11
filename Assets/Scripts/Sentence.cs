@@ -36,7 +36,6 @@ public class Sentence : MonoBehaviour
             float y = Random.Range(i*heightChange, i* heightChange + heightChange);
             wordObjects[i].GetComponent<RectTransform>().localPosition = new Vector3(horizontalDistance, y);
             horizontalDistance += (width / 2) / 100 + Random.Range(0.6f, maxJumpRange);
-            Debug.Log("Horizontal Distance is now " + horizontalDistance);
         }
     }
 
@@ -48,7 +47,6 @@ public class Sentence : MonoBehaviour
 
     private static Color GetColor(string speaker)
     {
-        Debug.Log("Speaker is " + speaker);
         switch (speaker) {
             case "":
                 return Color.black;
@@ -69,5 +67,14 @@ public class Sentence : MonoBehaviour
     public float HorizontalDistance()
     {
         return horizontalDistance;
+    }
+
+    public bool AllTouched()
+    {
+        bool touched = true;
+        for (int i = 0; i < wordObjects.Length; ++i) {
+            touched &= wordObjects[i].GetComponent<Word>().Touched();
+        }
+        return touched;
     }
 }

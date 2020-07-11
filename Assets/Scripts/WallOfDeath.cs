@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class WallOfDeath : MonoBehaviour
 {
+    public GameObject player;
     float risingSpeed = 1.0f;
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0.0f, risingSpeed * Time.deltaTime);
+        Vector3 pos = gameObject.transform.position;
+        gameObject.transform.position = new Vector3(player.transform.position.x, pos.y + risingSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

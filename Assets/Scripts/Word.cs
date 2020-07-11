@@ -13,7 +13,6 @@ public class Word : MonoBehaviour
     {
         Text text = gameObject.GetComponent<Text>();
         text.text = word;
-        Debug.Log("The preferred width of " + text.text + " is " + text.preferredWidth);
     }
 
     private void Start()
@@ -36,5 +35,10 @@ public class Word : MonoBehaviour
                 text.color -= new Color(40.0f, 40.0f, 40.0f);
             }
         }
+    }
+
+    public bool Touched()
+    {
+        return touched;
     }
 }

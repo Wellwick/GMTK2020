@@ -7,6 +7,8 @@ public class Dialogue : MonoBehaviour
     public TextAsset dialogue;
     public GameObject sentence;
     private GameObject[] sentences;
+    private float height = 0.0f;
+    private float width = 0.0f;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,8 +19,6 @@ public class Dialogue : MonoBehaviour
             Debug.Log(lines[i]);
         }
         sentences = new GameObject[lines.Length];
-        float height = 0.0f;
-        float width = 0.0f;
         for (int i = 0; i < lines.Length; ++i) {
             sentence.GetComponent<Sentence>().sentence = lines[i];
             sentences[i] = GameObject.Instantiate(sentence, gameObject.transform);
@@ -34,5 +34,14 @@ public class Dialogue : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool AllTouched()
+    {
+        bool touched = true;
+        for (int i = 0; i < sentences.Length; ++i) {
+            touched &= sentences[i].GetComponent<Sentence>().AllTouched();
+        }
+        return touched;
     }
 }
