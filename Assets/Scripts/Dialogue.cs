@@ -5,7 +5,8 @@ using UnityEngine;
 public class Dialogue : MonoBehaviour
 {
     public TextAsset dialogue;
-    public Sentence sentence;
+    public GameObject sentence;
+    private GameObject[] sentences;
 
     // Start is called before the first frame update
     void Awake()
@@ -15,7 +16,18 @@ public class Dialogue : MonoBehaviour
         for (int i = 0; i < lines.Length; ++i) {
             Debug.Log(lines[i]);
         }
-        sentence.sentence = lines[0];
+        sentences = new GameObject[lines.Length];
+        float height = 0.0f;
+        float width = 0.0f;
+        for (int i = 0; i < lines.Length; ++i) {
+            sentence.GetComponent<Sentence>().sentence = lines[i];
+            sentences[i] = GameObject.Instantiate(sentence, gameObject.transform);
+            sentences[i].transform.position += new Vector3(width, height);
+            Sentence currentSentence = sentences[i].GetComponent<Sentence>();
+            height += currentSentence.LowestMaxHeight();
+            width += currentSentence.HorizontalDistance();
+            Debug.Log("New Height " + height + ", New Width " + width);
+        }
     }
 
     // Update is called once per frame

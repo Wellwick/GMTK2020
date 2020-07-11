@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Word : MonoBehaviour
 {
     public string word;
+    private bool touched = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,9 +26,15 @@ public class Word : MonoBehaviour
         bc.size = new Vector2(text.preferredWidth, text.preferredHeight);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (!touched) {
+            MainCharacter player = collision.gameObject.GetComponent<MainCharacter>();
+            if (player) {
+                touched = true;
+                Text text = GetComponent<Text>();
+                text.color -= new Color(40.0f, 40.0f, 40.0f);
+            }
+        }
     }
 }

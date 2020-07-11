@@ -9,22 +9,34 @@ public class Sentence : MonoBehaviour
     public float maxHeightDifference = 3.0f;
     public float maxJumpRange = 3.0f;
     public GameObject word; // Prefab word
+    private GameObject[] wordObjects;
+    private float horizontalDistance = 0.0f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        float x = 0;
+        horizontalDistance = 0.0f;
         string[] words = sentence.Split(' ');
-        for (int i = 0; i < words.Length; ++i) {
+        wordObjects = new GameObject[words.Length];
+        int startIndex = 0;
+        Color textColor;
+        if (words[0].Contains(":")) {
+            textColor = Sentence.GetColor(words[0].Replace(":", ""));
+            startIndex = 1;
+        } else {
+            textColor = Sentence.GetColor("");
+        }
+        for (int i = startIndex; i < words.Length; ++i) {
             word.GetComponent<Word>().word = words[i];
-            GameObject go = GameObject.Instantiate(word, gameObject.transform);
-            float width = go.GetComponent<Text>().preferredWidth;
-            x += (width / 2) / 100;
+            word.GetComponent<Text>().color = textColor;
+            wordObjects[i] = GameObject.Instantiate(word, gameObject.transform);
+            float width = wordObjects[i].GetComponent<Text>().preferredWidth;
+            horizontalDistance += (width / 2) / 100;
             float heightChange = maxHeightDifference / 2.0f;
             float y = Random.Range(i*heightChange, i* heightChange + heightChange);
-            go.GetComponent<RectTransform>().localPosition = new Vector3(x, y);
-            x += (width / 2) / 100 + Random.Range(0.6f, maxJumpRange);
-            Debug.Log("x is now " + x);
+            wordObjects[i].GetComponent<RectTransform>().localPosition = new Vector3(horizontalDistance, y);
+            horizontalDistance += (width / 2) / 100 + Random.Range(0.6f, maxJumpRange);
+            Debug.Log("Horizontal Distance is now " + horizontalDistance);
         }
     }
 
@@ -32,5 +44,30 @@ public class Sentence : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private static Color GetColor(string speaker)
+    {
+        Debug.Log("Speaker is " + speaker);
+        switch (speaker) {
+            case "":
+                return Color.black;
+            case "ME":
+                return new Color(238, 130, 238); // Violet, comes out white for some reason
+            case "Knight":
+                return Color.red;
+            default:
+                return new Color(40, 40, 40); //Greyish
+        }
+    }
+
+    public float LowestMaxHeight()
+    {
+        return wordObjects.Length * maxHeightDifference/2.0f;
+    }
+
+    public float HorizontalDistance()
+    {
+        return horizontalDistance;
     }
 }
