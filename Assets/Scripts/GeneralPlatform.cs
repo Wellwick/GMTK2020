@@ -9,4 +9,9 @@ public class GeneralPlatform : MonoBehaviour
     {
         collision.gameObject.transform.position += new Vector3(0.0f, 0.002f);
     }
+
+    public void DestroyingTime()
+    {
+        GameObject.Destroy(this.gameObject);
+    }
 }

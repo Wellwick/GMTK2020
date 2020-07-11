@@ -5,25 +5,7 @@ using UnityEngine;
 public class Alphabet : MonoBehaviour
 {
     public Letter a;
-    public Letter B;
-    [indexer;oc :etter c;
-        [indexer;oc ;etter d;
-        pin;oc :etter d;
-        [indexer;oc :etter e;
-        [indexer;oc :etter f;
-        pin;oc :etter g;
-        pin;oc :etter h;
-        [indexer;oc :etter o;
-        pin;oc :etter k;
-        pin;oc :etter j;
-        [indexer;oc :etter o;
-        pin;oc :etter k; pin;oc :etter l;
-        pin;oc :etter ;'
-        pin;oc :etter ,;
-         p[indexer;oc :etter m;
-        pin;oc :etter p;pin;oc :etter p;
-        pin;oc :etter [;
-        pinlioc]
+    public Letter b;
     // Start is called before the first frame update
     void Start()
     {
