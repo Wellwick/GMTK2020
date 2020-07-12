@@ -15,28 +15,34 @@ public class Tower : MonoBehaviour
     void Start()
     {
         GameObject leftWall = GameObject.Instantiate(wallPrefab, transform);
-        leftWall.transform.position = new Vector3(-width / 2, 0.0f);
+        leftWall.transform.position = new Vector3(-width / 2, height/2);
+        leftWall.transform.localScale = new Vector3(10.0f, height * 5);
         GameObject rightWall = GameObject.Instantiate(wallPrefab, transform);
-        rightWall.transform.position = new Vector3(width / 2, 0.0f);
+        rightWall.transform.position = new Vector3(width / 2, height/2);
+        rightWall.transform.localScale = new Vector3(10.0f, height * 5);
+
         Vector3 lastPlatform = new Vector3();
-        float safetyWidth = width - platformPrefab.GetComponent<BoxCollider2D>().size.x;
+        float safetyWidth = 
+            width - platformPrefab.GetComponent<BoxCollider2D>().size.x - 
+            wallPrefab.GetComponent<BoxCollider2D>().size.x * wallPrefab.transform.localScale.x;
         float yPos = 0.0f;
         while (yPos < height) {
             float dist = Random.RandomRange(minPlatformDistance, maxPlatformDistance);
-            float leftAngle = Mathf.Deg2Rad*30.0f;
-            float rightAngle = Mathf.Deg2Rad*150.0f;
-            if (lastPlatform.x - dist < -safetyWidth/2) {
-                leftAngle = Mathf.Acos((-safetyWidth/2+lastPlatform.x)/dist);
+            float leftAngle = Mathf.PI/6;
+            float rightAngle = leftAngle*5;
+            float defaultAngleMultiplier = Mathf.Cos(leftAngle);
+            if (lastPlatform.x - (defaultAngleMultiplier * dist) < -safetyWidth/2) {
+                leftAngle = Mathf.Acos((safetyWidth/2+lastPlatform.x)/dist);
             }
-            if (lastPlatform.x + dist > safetyWidth/2) {
-                rightAngle = Mathf.Acos((safetyWidth/2-lastPlatform.x)/dist);
+            if (lastPlatform.x + (defaultAngleMultiplier * dist) > safetyWidth/2) {
+                rightAngle = Mathf.PI - Mathf.Acos((safetyWidth/2-lastPlatform.x)/dist);
             }
             float angle = Random.RandomRange(leftAngle, rightAngle);
-            float xPos = Mathf.Cos(angle)*dist + lastPlatform.x;
+            float xPos = lastPlatform.x - (Mathf.Cos(angle) * dist);
             yPos = Mathf.Sin(angle)*dist + lastPlatform.y;
             GameObject platform = GameObject.Instantiate(platformPrefab, transform);
             lastPlatform = new Vector3(xPos, yPos);
-            Debug.Log("Made new platform at " + lastPlatform);
+            //Debug.Log("Made new platform at " + lastPlatform);
             platform.transform.position = lastPlatform;
         }
     }
