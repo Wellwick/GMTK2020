@@ -11,6 +11,7 @@ public class Sentence : MonoBehaviour
     public GameObject word; // Prefab word
     private GameObject[] wordObjects;
     private float horizontalDistance = 0.0f;
+    private float verticalDistance = 0.0f;
     private bool wecare = true;
 
     // Start is called before the first frame update
@@ -40,10 +41,10 @@ public class Sentence : MonoBehaviour
             float width = wordObjects[i].GetComponent<Text>().preferredWidth;
             horizontalDistance += (width / 2) / 100;
             float heightChange = maxHeightDifference / 2.0f;
-            float y = Random.Range(i*heightChange, i* heightChange + heightChange);
-            wordObjects[i].GetComponent<RectTransform>().localPosition = new Vector3(horizontalDistance, y);
+            verticalDistance = Random.Range(i*heightChange, i* heightChange + heightChange);
+            wordObjects[i].GetComponent<RectTransform>().localPosition = new Vector3(horizontalDistance, verticalDistance);
             horizontalDistance += (width / 2) / 100 + Random.Range(0.6f, maxJumpRange);
-            Debug.Log("Horizontal Distance is now " + horizontalDistance);
+            //Debug.Log("Horizontal Distance is now " + horizontalDistance);
         }
     }
 
@@ -78,7 +79,7 @@ public class Sentence : MonoBehaviour
     // I don't know why it's divided by 2.0f!
     public float LowestMaxHeight()
     {
-        return wordObjects.Length * maxHeightDifference/2.0f;
+        return verticalDistance;
     }
 
     // Getter function for horizontalDistance

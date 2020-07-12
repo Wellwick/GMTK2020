@@ -9,7 +9,7 @@ public class DialogueChoice : MonoBehaviour
     private Word chosen;
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (!chosen) {
             foreach (Word word in choices) {

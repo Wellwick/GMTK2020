@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 20
-  height: 1000
+  height: 100
   minPlatformDistance: 1
   maxPlatformDistance: 4
   platformPrefab: {fileID: 2530134289549077163, guid: 558068c7326d7f346aef929d178c4485,

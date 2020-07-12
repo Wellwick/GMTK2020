@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour
     public GameObject wallPrefab;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject leftWall = GameObject.Instantiate(wallPrefab, transform);
         leftWall.transform.position = new Vector3(-width / 2, height/2);

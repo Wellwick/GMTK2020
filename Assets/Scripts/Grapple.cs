@@ -34,7 +34,7 @@ public class Grapple : MonoBehaviour
             Vector3 pos = ray.GetPoint(0.0f);
             pos.z = 0.0f;
             direction = pos - transform.position;
-            Debug.Log("Direction to grapple is (" + direction.x + ", " + direction.y + ")");
+            //Debug.Log("Direction to grapple is (" + direction.x + ", " + direction.y + ")");
             firing = true;
             firedDistance = 0.0f;
             hook = GameObject.Instantiate(

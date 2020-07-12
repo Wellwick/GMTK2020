@@ -14,7 +14,7 @@ public class Word : MonoBehaviour
     {
         Text text = gameObject.GetComponent<Text>();
         text.text = word;
-        Debug.Log("The preferred width of " + text.text + " is " + text.preferredWidth);
+        //Debug.Log("The preferred width of " + text.text + " is " + text.preferredWidth);
     }
 
     // Change up the rectangular transform and box collider based on the word
