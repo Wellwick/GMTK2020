@@ -5,26 +5,46 @@ using UnityEngine;
 public class MainCharacter : MonoBehaviour
 {
     public float maxSpeed = 6.0f;
-    public float acceleration = 10.0f;
+    public float maxSprintSpeed = 12.0f;
+    public float regularAcceleration = 10.0f;
+    public float shiftAcceleration = 15.0f;
+    private float realMaxSpeed;
+    private float realAcceleration;
 
     // Update is called once per frame
     // Move left and right when you press the right buttons.
     void Update()
     {
+        if (Input.GetKey("left shift")) {
+            realMaxSpeed = maxSprintSpeed;
+            realAcceleration = shiftAcceleration;
+        } else {
+            realMaxSpeed = maxSpeed;
+            realAcceleration = regularAcceleration;
+        }
         float currentX = this.gameObject.GetComponent<Rigidbody2D>().velocity.x;
         float currentY = this.gameObject.GetComponent<Rigidbody2D>().velocity.y;
         if (Input.GetKey("a") && !Input.GetKey("d")) {
-            float xSpeed = currentX - (acceleration * Time.deltaTime);
-            if (xSpeed > 0.0f) {
-                xSpeed -= acceleration * Time.deltaTime;
+            currentX -= (realAcceleration * Time.deltaTime);
+            if (currentX > 0.0f) {
+                currentX -= realAcceleration * Time.deltaTime;
             }
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, currentY);
         } else if (Input.GetKey("d") && !Input.GetKey("a")) {
-            float xSpeed = currentX + (acceleration * Time.deltaTime);
-            if (xSpeed < 0.0f) {
-                xSpeed += acceleration * Time.deltaTime;
+            currentX += (realAcceleration * Time.deltaTime);
+            if (currentX < 0.0f) {
+                currentX += realAcceleration * Time.deltaTime;
             }
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, currentY);
         }
+        if (Mathf.Abs(currentX) > realMaxSpeed) {
+            currentX *= 0.9f;
+            if (currentX < -realMaxSpeed) {
+                currentX = -realMaxSpeed;
+            } else if (currentX > realMaxSpeed) {
+                currentX = realMaxSpeed;
+            }
+        }
+
+        this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(currentX, currentY);
+
     }
 }
