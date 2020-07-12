@@ -25,7 +25,9 @@ public class Hook : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GeneralPlatform gp = collision.gameObject.GetComponent<GeneralPlatform>();
-        hooked = true;
+        if (gp.IsGrappleable()) {
+            hooked = true;
+        }
     }
 
     public bool IsHooked()

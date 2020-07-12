@@ -8,6 +8,7 @@ public class Grapple : MonoBehaviour
     public float range = 8.0f;
     public float fireSpeed = 14.0f;
     public float reelSpeed = 2.0f;
+    public float lockInDistance = 0.2f;
     private bool firing = false;
     private bool reeling = false;
     private float firedDistance;
@@ -44,7 +45,7 @@ public class Grapple : MonoBehaviour
             reeling = false;
             gameObject.GetComponent<LineRenderer>().enabled = true;
         }
-        if (Input.GetKey("space")) {
+        if (Input.GetKeyDown("space")) {
             if (hook) {
                 GameObject.Destroy(hook.gameObject);
                 gameObject.GetComponent<LineRenderer>().enabled = false;
@@ -55,7 +56,11 @@ public class Grapple : MonoBehaviour
 
         if (reeling) {
             Vector3 direction = hook.gameObject.transform.position - transform.position;
-            GetComponent<Rigidbody2D>().velocity = direction.normalized * reelSpeed;
+            if (direction.magnitude > lockInDistance) {
+                GetComponent<Rigidbody2D>().velocity = direction.normalized * reelSpeed;
+            } else {
+                transform.position = hook.gameObject.transform.position;
+            }
         }
 
         if (firing) {
