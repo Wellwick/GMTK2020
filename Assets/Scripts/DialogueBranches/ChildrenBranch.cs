@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChildrenBranch : DialogueChoice
 {
@@ -8,6 +9,8 @@ public class ChildrenBranch : DialogueChoice
     public GameObject wordPrefab;
     public GameObject towerPrefab;
     public GameObject glassPrefab;
+    public GameObject choice1;
+    public GameObject choice2;
     private bool anyTouched = false;
 
     private void Start()
@@ -15,12 +18,14 @@ public class ChildrenBranch : DialogueChoice
         choices = new Word[2];
         Vector3 startPoint = pastDialogue.EndPoint();
         DialogueChoice dc = new DialogueChoice();
-        wordPrefab.GetComponent<Word>().word = "Yes!";
+        wordPrefab.GetComponent<Word>().word = "Who are you?";
         choices[0] = GameObject.Instantiate(wordPrefab, transform).GetComponent<Word>();
-        wordPrefab.GetComponent<Word>().word = "No!";
+        wordPrefab.GetComponent<Word>().word = "How did I get here?";
         choices[1] = GameObject.Instantiate(wordPrefab, transform).GetComponent<Word>();
-        choices[0].transform.position = startPoint + new Vector3(2.0f, 1.5f);
-        choices[1].transform.position = startPoint + new Vector3(2.0f, 0.0f);
+        choices[0].transform.position = startPoint + new Vector3(2.0f, 3.5f);
+        choices[0].GetComponent<Text>().color = new Color(0.2f, 0.6f, 0.2f);
+        choices[1].transform.position = startPoint + new Vector3(4.5f, -1.0f);
+        choices[1].GetComponent<Text>().color = new Color(0.2f, 0.6f, 0.2f);
         transform.position = pastDialogue.transform.position;
     }
 
@@ -31,19 +36,22 @@ public class ChildrenBranch : DialogueChoice
             base.Update();
         }
         if (!anyTouched) {
+            Vector3 spawnTowerPos = new Vector3();
             if (choices[0].HasBeenTouched()) {
                 anyTouched = true;
-                //Load extra dialogue, TODO
+                choice1.transform.position = choices[0].transform.position + new Vector3(2.0f, 2.0f);
+                spawnTowerPos = choice1.GetComponent<Dialogue>().EndPoint() + choice1.transform.position + new Vector3(-3.0f, 3.0f);
             }
             if (choices[1].HasBeenTouched()) {
                 anyTouched = true;
-                //Load a tower!
-                Vector3 startPos = choices[1].transform.position;
-                startPos.y += 2.0f;
+                choice2.transform.position = choices[0].transform.position + new Vector3(2.0f, 2.0f);
+                spawnTowerPos = choice2.GetComponent<Dialogue>().EndPoint() + choice2.transform.position + new Vector3(-1.0f, 1.0f);
+            }
+            if (anyTouched) {
                 GameObject tower = GameObject.Instantiate(towerPrefab);
-                tower.transform.position = startPos;
+                tower.transform.position = spawnTowerPos;
                 GameObject glass = GameObject.Instantiate(glassPrefab);
-                glass.transform.position = startPos + new Vector3(0.0f, tower.GetComponent<Tower>().height + 2.0f);
+                glass.transform.position = spawnTowerPos + new Vector3(0.0f, tower.GetComponent<Tower>().height + 4.0f);
             }
         }
     }
