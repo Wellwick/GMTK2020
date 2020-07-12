@@ -23,16 +23,21 @@ public class Tower : MonoBehaviour
         float yPos = 0.0f;
         while (yPos < height) {
             float dist = Random.RandomRange(minPlatformDistance, maxPlatformDistance);
-            float leftAngle = Mathf.Deg2Rad*-60.0f;
-            float rightAngle = Mathf.Deg2Rad*60.0f;
-            if (lastPlatform.x + dist > safetyWidth/2) {
-                leftAngle = Mathf.Acos((safetyWidth-lastPlatform.x)/dist);
+            float leftAngle = Mathf.Deg2Rad*30.0f;
+            float rightAngle = Mathf.Deg2Rad*150.0f;
+            if (lastPlatform.x - dist < -safetyWidth/2) {
+                leftAngle = Mathf.Acos((-safetyWidth/2+lastPlatform.x)/dist);
             }
-            //float angle = Random.RandomRange();
-            //yPos += Mathf.Sqrt(dist * dist - xDiff * xDiff);
-            //GameObject platform = GameObject.Instantiate(platformPrefab, transform);
-            //lastPlatform = new Vector3(xPos, yPos);
-            //platform.transform.position = lastPlatform;
+            if (lastPlatform.x + dist > safetyWidth/2) {
+                rightAngle = Mathf.Acos((safetyWidth/2-lastPlatform.x)/dist);
+            }
+            float angle = Random.RandomRange(leftAngle, rightAngle);
+            float xPos = Mathf.Cos(angle)*dist + lastPlatform.x;
+            yPos = Mathf.Sin(angle)*dist + lastPlatform.y;
+            GameObject platform = GameObject.Instantiate(platformPrefab, transform);
+            lastPlatform = new Vector3(xPos, yPos);
+            Debug.Log("Made new platform at " + lastPlatform);
+            platform.transform.position = lastPlatform;
         }
     }
 
