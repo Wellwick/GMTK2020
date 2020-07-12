@@ -24,7 +24,7 @@ public class Grapple : MonoBehaviour
     // Destroy the hook and refire if needed
     void Update()
     {
-        if (Input.GetKey("e") && !firing) {
+        if ((Input.GetKey("e") || Input.GetMouseButton(0)) && !firing) {
             if (hook) {
                 GameObject.Destroy(hook.gameObject);
                 gameObject.GetComponent<LineRenderer>().enabled = false;
